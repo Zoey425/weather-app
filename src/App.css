@@ -1,0 +1,42 @@
+body {
+    background-color: #efefef;
+    height: 100vh;
+}
+.wrap {
+    margin: 20vh auto 0 auto;
+    position: relative;
+}
+
+.mainCard {
+    text-align: center;
+    margin: 0 auto;
+    width: 40vw;
+    height: 30vh;
+    background-color: #fff;
+    padding: 8%;
+}
+.currentWeather {
+    margin-bottom: 5%;
+}
+.currentWeather h1 {
+    font-size: 4rem;
+}
+
+.cityBtns {
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+.cityBtns button {
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px soild #999;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.cityName,
+.temp {
+    margin-bottom: 2vh;
+}

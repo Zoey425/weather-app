@@ -1,4 +1,7 @@
+import { useEffect, useState } from 'react';
 import './App.css';
+import WeatherText from './component/WeatherText';
+import Button from './component/WeatherBtn';
 
 // 유저스토리
 // 1. 유저는 현재 위치의 날씨를 볼 수 있다.
@@ -8,8 +11,42 @@ import './App.css';
 // 4. 유저는 데이터가 로딩될 때 로딩 스피너를 볼 수 있다.
 
 function App() {
-    // const weahterAPI = `https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={02e8eecc84dea504dee388ebca659896}`;
-    return <div>hi</div>;
+    const [weatherData, setWeatherData] = useState(null);
+
+    const getCurrentLocation = () => {
+        navigator.geolocation.getCurrentPosition(position => {
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+            //console.log(`Your current location is  Lat: ${lat}, Lon: ${lon}`);
+            getWeatherByCurrentLocation(lat, lon);
+        });
+    };
+
+    const getWeatherByCurrentLocation = async (lat, lon) => {
+        const API_KEY = 'd44819fdd9056eb3de7dadbc723a583b';
+        let url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&units=metric`;
+        let response = await fetch(url);
+        let data = await response.json();
+        setWeatherData(data);
+    };
+
+    useEffect(() => {
+        getCurrentLocation();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    return (
+        <div className="wrap">
+            <div className="mainCard">
+                <WeatherText weatherData={weatherData} />
+                <div className="cityBtns">
+                    <Button city={'Current Location'} />
+                    <Button city={'Bangkok'} />
+                    <Button city={'Toronto'} />
+                    <Button city={'New York'} />
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default App;
