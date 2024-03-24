@@ -19,7 +19,7 @@ body {
     margin-bottom: 5%;
 }
 .currentWeather h1 {
-    font-size: 4rem;
+    font-size: 6rem;
 }
 
 .cityBtn {
@@ -35,8 +35,20 @@ body {
     border-radius: 10px;
     background-color: transparent;
 }
+.fontSpan {
+    font-size: 3rem;
+    margin-left: 10px;
+}
 
 .cityName,
 .temp {
     margin-bottom: 2vh;
+}
+
+.cityName {
+    font-weight: 800;
+}
+
+.weatherState {
+    margin-top: 5%;
 }
