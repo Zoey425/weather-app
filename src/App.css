@@ -22,13 +22,13 @@ body {
     font-size: 4rem;
 }
 
-.cityBtns {
+.cityBtn {
     display: flex;
     justify-content: center;
     margin-top: 10%;
 }
 
-.cityBtns button {
+.cityBtn button {
     margin-left: 10px;
     padding: 10px;
     border: 1px soild #999;

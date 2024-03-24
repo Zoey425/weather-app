@@ -24,7 +24,7 @@ function App() {
 
     const getWeatherByCurrentLocation = async (lat, lon) => {
         const API_KEY = 'd44819fdd9056eb3de7dadbc723a583b';
-        let url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&units=metric`;
+        let url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
         let response = await fetch(url);
         let data = await response.json();
         setWeatherData(data);
@@ -38,7 +38,7 @@ function App() {
         <div className="wrap">
             <div className="mainCard">
                 <WeatherText weatherData={weatherData} />
-                <div className="cityBtns">
+                <div className="cityBtn">
                     <Button city={'Current Location'} />
                     <Button city={'Bangkok'} />
                     <Button city={'Toronto'} />
