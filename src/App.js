@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import WeatherText from './component/WeatherText';
-import Button from './component/WeatherBtn';
+import WeatherBtn from './component/WeatherBtn';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 // 유저스토리
 // 1. 유저는 현재 위치의 날씨를 볼 수 있다.
@@ -12,6 +14,9 @@ import Button from './component/WeatherBtn';
 
 function App() {
     const [weatherData, setWeatherData] = useState(null);
+    const [city, setCity] = useState('');
+    const cities = ['Bangkok', 'Singapore', 'New York', 'Seoul'];
+    const [loading, setLoading] = useState(false);
 
     const getCurrentLocation = () => {
         navigator.geolocation.getCurrentPosition(position => {
@@ -21,29 +26,55 @@ function App() {
             getWeatherByCurrentLocation(lat, lon);
         });
     };
-
+    const API_KEY = 'd44819fdd9056eb3de7dadbc723a583b';
     const getWeatherByCurrentLocation = async (lat, lon) => {
-        const API_KEY = 'd44819fdd9056eb3de7dadbc723a583b';
         let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+        setLoading(true);
         let response = await fetch(url);
         let data = await response.json();
         setWeatherData(data);
+        setLoading(false);
+    };
+
+    const getWeatherByCity = async () => {
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+        setLoading(true);
+        let response = await fetch(url);
+        let data = await response.json();
+        setWeatherData(data);
+        setLoading(false);
+    };
+
+    const handleCity = city => {
+        if (city === 'current') {
+            setCity('');
+        } else {
+            setCity(city);
+        }
     };
 
     useEffect(() => {
-        getCurrentLocation();
+        if (city === '') {
+            getCurrentLocation();
+        } else {
+            getWeatherByCity();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [city]);
+
     return (
         <div className="wrap">
             <div className="mainCard">
-                <WeatherText weatherData={weatherData} />
-                <div className="cityBtn">
-                    <Button city={'Current Location'} />
-                    <Button city={'Bangkok'} />
-                    <Button city={'Toronto'} />
-                    <Button city={'New York'} />
-                </div>
+                {loading ? (
+                    <ClipLoader color="#66666" loading={loading} size={150} aria-label="Loading Spinner" />
+                ) : (
+                    <div>
+                        <WeatherText weatherData={weatherData} />
+                        <div className="cityBtn">
+                            <WeatherBtn cities={cities} setCity={city} handleCity={handleCity} />
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 body {
-    background-color: #efefef;
+    background-color: #efefef !important;
     height: 100vh;
 }
 .wrap {
@@ -11,9 +11,9 @@ body {
     text-align: center;
     margin: 0 auto;
     width: 40vw;
-    height: 30vh;
     background-color: #fff;
-    padding: 8%;
+    padding: 5%;
+    border-radius: 10px;
 }
 .currentWeather {
     margin-bottom: 5%;
